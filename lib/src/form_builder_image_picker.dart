@@ -95,7 +95,7 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
             final primaryColor = theme.primaryColor;
 
             return InputDecorator(
-              decoration: state.decoration(),
+              decoration: state.decoration,
               child: Container(
                 height: previewHeight,
                 child: ListView(
@@ -103,9 +103,7 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
                   children: [
                     if (field.value != null)
                       ...field.value!.map<Widget>((dynamic item) {
-                        assert(item is File ||
-                            item is String ||
-                            item is Uint8List);
+                        assert(item is File || item is String || item is Uint8List);
                         return Stack(
                           alignment: Alignment.topRight,
                           children: <Widget>[
@@ -114,19 +112,16 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
                               height: previewHeight,
                               margin: previewMargin,
                               child: kIsWeb
-                                  ? Image.memory(item as Uint8List,
-                                      fit: BoxFit.cover)
+                                  ? Image.memory(item as Uint8List, fit: BoxFit.cover)
                                   : item is String
                                       ? Image.network(item, fit: BoxFit.cover)
-                                      : Image.file(item as File,
-                                          fit: BoxFit.cover),
+                                      : Image.file(item as File, fit: BoxFit.cover),
                             ),
                             if (state.enabled)
                               InkWell(
                                 onTap: () {
                                   state.requestFocus();
-                                  field.didChange(
-                                      <dynamic>[...?field.value]..remove(item));
+                                  field.didChange(<dynamic>[...?field.value]..remove(item));
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(3),
@@ -160,13 +155,9 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
                                 height: previewHeight,
                                 child: Icon(
                                   Icons.camera_enhance,
-                                  color: state.enabled
-                                      ? iconColor ?? primaryColor
-                                      : disabledColor,
+                                  color: state.enabled ? iconColor ?? primaryColor : disabledColor,
                                 ),
-                                color: (state.enabled
-                                        ? iconColor ?? primaryColor
-                                        : disabledColor)
+                                color: (state.enabled ? iconColor ?? primaryColor : disabledColor)
                                     .withAlpha(50)),
                         onTap: () {
                           showModalBottomSheet<void>(
@@ -184,13 +175,11 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
                                 galleryLabel: galleryLabel,
                                 onImageSelected: (image) {
                                   state.requestFocus();
-                                  field.didChange(
-                                      <dynamic>[...?field.value, image]);
+                                  field.didChange(<dynamic>[...?field.value, image]);
                                   Navigator.pop(state.context);
                                 },
                                 onImage: (image) {
-                                  field.didChange(
-                                      <dynamic>[...?field.value, image]);
+                                  field.didChange(<dynamic>[...?field.value, image]);
                                   onChanged?.call(field.value);
                                   Navigator.pop(state.context);
                                 },
@@ -213,7 +202,5 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
 class _FormBuilderImagePickerState
     extends FormBuilderFieldState<FormBuilderImagePicker, List<dynamic>> {
   bool get hasMaxImages =>
-      widget.maxImages != null &&
-      value != null &&
-      value!.length >= widget.maxImages!;
+      widget.maxImages != null && value != null && value!.length >= widget.maxImages!;
 }
