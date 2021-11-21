@@ -52,7 +52,7 @@ class FormBuilderImagePicker extends FormBuilderField<List<dynamic>> {
     List<dynamic>? initialValue,
     InputDecoration decoration = const InputDecoration(),
     ValueChanged<List<dynamic>?>? onChanged,
-    ValueTransformer<List<dynamic>>? valueTransformer,
+    ValueTransformer<List<dynamic>?>? valueTransformer,
     bool enabled = true,
     FormFieldSetter<List<dynamic>>? onSaved,
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
